@@ -1,0 +1,71 @@
+.navbar {
+    .brand {
+        font-family: 'Merienda', cursive;
+        color: hsla(0, 0%, 50%, 1);
+        text-shadow: 1px 1px 0px hsla(0, 0%, 100%, 1), 2px 2px 0px hsla(0, 0%, 50%, 1);
+        @include transition(#{text-shadow 0.5s, color 0.5s});
+
+        &:hover {
+            color: hsla(210, 50%, 50%, 1);
+            text-shadow: 1px 1px 0px hsla(0, 0%, 100%, 1), 2px 2px 0px hsla(210, 50%, 50%, 1);
+        }
+    }
+
+    .nav li i {
+        margin-top: -7px;
+    }
+
+    .nav .flag-icon i {
+        margin-top: 0;
+    }
+
+    .btn-sidebar {
+        display: none;
+    }
+}
+
+@media (max-width: 979px) {
+    .navbar-fixed-top .navbar-inner,
+    .navbar-fixed-bottom .navbar-inner {
+        padding: 5px 15px;
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top {
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+
+    .navbar-static-top .container,
+    .navbar-fixed-top .container,
+    .navbar-fixed-bottom .container {
+        width: auto;
+        max-width: 880px;
+    }
+
+    .navbar {
+        .container {
+            text-align: center;
+
+            .brand {
+                float: none;
+                display: inline-block;
+            }
+
+            .btn-navbar {
+                display: none;
+            }
+
+            .btn-sidebar {
+                display: inline-block;
+                float: left;
+                margin-right: -100%;
+            }
+
+            .nav-collapse {
+                display: none;
+            }
+        }
+    }
+}

@@ -1,0 +1,560 @@
+@import "compass";
+@import "variables";
+
+.container .row {
+    position: relative;
+}
+
+.sidebar-container, .sidebar-nav-container {
+    .nav {
+        position: absolute;
+        width: 220px;
+        margin: 30px 0 20px;
+        padding: 0;
+        background-color: $cardBackground;
+        border-radius: $cardBorderRadius;
+        box-shadow: $cardShadow;
+
+        &, &.affix {
+            position: fixed;
+            top: 30px;
+        }
+
+        &.affix-top {
+            top: 30px;
+        }
+
+        &.affix-bottom {
+            position: absolute;
+            top: auto;
+            bottom: $footerHeight + $footerBottomMargin;
+        }
+
+        li {
+
+            a {
+                border-top: solid 1px hsla(0, 0%, 93%, 1);
+                box-shadow: inset 0 1px 0 white;
+            }
+
+            &.active a {
+                background: none;
+                text-shadow: none;
+                color: lighten($hotColor, 10%);
+                font-weight: bold;
+                //padding-left: 16px;
+                //border-left: solid 4px lighten($hotColor, 10%);
+
+                &:before {
+                    @include transform(translateX(0));
+                }
+
+                .label {
+                    color: lighten($hotColor, 18%);
+                    box-shadow: inset 0 0 0 3px lighten($hotColor, 22%);
+                    background: lighten($hotColor, 38%);
+                }
+            }
+
+            a {
+                position: relative;
+                margin: 0;
+                padding: 10px 10px 10px 20px;
+                color: hsla(0, 0%, 55%, 1);
+                overflow: hidden;
+                //border-left: solid 0px lighten($hotColor, 10%);
+                @include transition(all $transitionTime);
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    width: 4px;
+                    top: 0;
+                    bottom: 0;
+                    background: lighten($hotColor, 10%);
+                    @include transform(translateX(-4px));
+                    @include transition(all $transitionTime);
+                }
+
+                &:hover, &:focus {
+                    background: hsla(220, 5%, 53%, 1);
+                    color: hsla(0, 0%, 90, 1);
+                    text-shadow: none;
+                    box-shadow: inset 0 1px 0 hsla(0, 0%, 100%, 0.1);
+
+                    .label {
+                        background: hsla(0, 0%, 80%, 1);
+                        box-shadow: inset 0 0 0 0px hsla(0, 0%, 80%, 1);
+                        // border-color: hsla(220, 5%, 53%, 1);
+                        //text-shadow: none;//0 -1px 0 hsla(0, 0%, 43%, 1);
+                        color: hsla(220, 5%, 53%, 1);
+                    }
+
+                    .caption {
+                        @include transform(translateX(10px));
+                    }
+
+                    .icon-chevron-right {
+                        @include animation(0.2s, 1.5s, shuffle, infinite);
+                    }
+                }
+
+                .icon-chevron-right {
+                    @extend .pull-right;
+                    color: hsl(0, 0%, 80%);
+                    margin: 5px 0 0;
+                    font-size: 12px;
+                    font-weight: bold;
+                }
+
+                .caption {
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    display: block;
+                    padding-right: 10px;
+                    @include transition(transform $transitionTime);
+                    @include transform(translateX(0));
+                }
+
+                .label {
+                    @extend .pull-right;
+                    background: hsla(0, 0%, 93%, 1);
+                    //border: solid 3px hsla(0, 0%, 87%, 1);
+                    border: none;
+                    text-shadow: none;
+                    color: hsla(0, 0%, 70%, 1);
+                    //padding: 3px 7px 3px 6px;
+                    padding: 6px 10px 6px 9px;
+                    box-shadow: inset 0 0 0 3px hsla(0, 0%, 87%, 1);
+                    margin: -2px 0 -4px 0;
+                    font-weight: bold;
+                    font-size: 14px;
+                    @include transition(all $transitionTime);
+                }
+            }
+
+            &.active > a:hover, &.active a:focus {
+                //padding-left: 16px;
+                //border-left: solid 4px hsl(220, 8%, 75%);
+
+                &:before {
+                    background: hsla(220, 8%, 75%, 1);
+                }
+            }
+
+            &:last-child > a {
+                //border-top: none;
+                //box-shadow: none;
+            }
+
+            &:first-child > a {
+                border-radius: 4px 4px 0 0;
+                border-top-width: 0;
+            }
+
+            &:last-child > a {
+                border-radius: 0 0 4px 4px;
+            }
+
+            &.active {
+                &:first-child {
+                    a:before {
+                        border-top-left-radius: 4px;
+                    }
+                }
+
+                &:last-child {
+                    a:before {
+                        border-bottom-left-radius: 4px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include keyframe(shuffle) {
+    0% {
+        opacity: 1;
+        @include transform(translateX(0));
+    }
+
+    5% {
+        opacity: 0;
+        @include transform(translateX(20px));
+    }
+
+    6% {
+        opacity: 0;
+        @include transform(translateX(-20px));
+    }
+
+    10% {
+        opacity: 1;
+        @include transform(translateX(0));
+    }
+}
+
+.sidebar-nav-container {
+
+    -webkit-font-smoothing: antialiased;
+    display: none;
+    position: fixed;
+    //width: $sidebarWidth;
+    //left: -$sidebarWidth;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: $zindexFixedNavbar + 1;
+    //font-weight: bold;
+
+    //@include transform(translateX(-$sidebarWidth));
+    @include transition(transform $transitionTime);
+
+    // &:after {
+    //     content: '';
+    //     position: fixed;
+    //     left: $sidebarWidth;
+    //     width: 100px;
+    //     background: transparent;
+    //     display: inline-block;
+    //     box-shadow: -35px 0 50px -25px hsla(220, 12%, 10%, 0.6);
+    //     top: -100px;
+    //     bottom: -100px;
+    // }
+
+    ul.nav > li > a {
+        [class^="icon-"],
+        [class*=" icon-"],
+        .flag-icon {
+            margin-right: 15px;
+        }
+    }
+
+    ul.nav {
+        li.active {
+            &:first-child, &:last-child {
+                & > a, & > a:before {
+                    border-radius: 0;
+                }
+            }
+        }
+
+        li:first-child > a {
+            border-top-width: 1px;
+        }
+    }
+
+    .nav .dropdown-toggle .caret {
+        border-top-color: hsla(220, 5%, 55%, 1);
+        border-bottom-color: hsla(220, 5%, 55%, 1);
+        margin-top: 10px;
+    }
+
+    .sidebar {
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        @include transition(all $transitionTime);
+
+        ul.nav li a {
+            padding-left: 40px;
+        }
+    }
+
+    .dropdown-menu li a {
+        padding-left: 40px;
+    }
+
+    .navbar-container {
+        .brand, .btn-navbar {
+            display: none;
+        }
+
+        .nav-collapse {
+            height: auto !important;
+
+            .dropdown-menu {
+                margin: 0;
+            }
+        }
+    }
+
+    .sidebar-open & .navbar-container + ul.nav > li {
+        //border-bottom: solid 1px hsla(220, 12%, 18%, 0.6);
+        //box-shadow: 0 1px 0 hsla(220, 12%, 25%, 0.6);
+        border-bottom: solid 1px hsla(0, 0%, 0%, 0.2);
+        box-shadow: 0 1px 0 hsla(0, 0%, 50%, 0.1);
+    }
+
+    .nav-collapse .dropdown-menu li + li a {
+        margin-bottom: 0;
+    }
+
+    ul.nav, ul.nav.affix, ul.dropdown-menu {
+        position: static;
+        margin: 0;
+        display: block;
+        width: auto;
+        top: 0;
+        background: none;
+        border-radius: 0;
+        box-shadow: none;
+
+        & > li {
+
+            & > a {
+                border-color: transparent;
+                box-shadow: none;
+            }
+
+            &.active {
+                & > a {
+                    background: hsla(220, 8%, 10%, 0.2);
+                    color: lighten($hotColor, 5%);
+                    box-shadow: 0 -1px 0 hsla(0, 0%, 50%, 0.1),
+                                inset 0 1px 3px -1px hsla(220, 12%, 10%, 0.3),
+                                inset 0 -1px 3px -1px hsla(220, 12%, 10%, 0.3);
+
+                    border-color: hsla(220, 12%, 15%, 1);
+                }
+            }
+
+            &.active + li > a {
+                border-color: hsla(220, 8%, 15%, 1);
+            }
+
+            & > a > .label, &.active > a > .label {
+                background: hsla(220, 8%, 25%, 0.5);
+                //border-color: hsla(220, 8%, 30%, 0.5);
+                box-shadow: inset 0 0 0 3px hsla(220, 8%, 30%, 0.5);
+                color: hsla(220, 8%, 55%, 1);
+            }
+
+            & > a {
+                &:before {
+                    background: lighten($hotColor, 5%);
+                }
+
+                &, & > .icon-chevron-right, &:hover, &:focus, & > .label {
+                    color: hsla(220, 5%, 65%, 1);
+                    text-shadow: 1px 1px 3px hsla(0, 0%, 0%, 0.3);
+                }
+
+                & > .icon-chevron-right {
+                    color: hsla(220, 5%, 30%, 1);
+                    margin-left: 10px;
+                    margin-right: 2px;
+                }
+
+                &:hover, &:focus {
+                    background: hsla(220, 10%, 40%, 0.2);
+                    color: hsla(220, 5%, 75%, 1);
+                    box-shadow: none;
+
+                    & > .icon-chevron-right {
+                        color: hsla(220, 5%, 45%, 1);
+                    }
+
+                    & > .label {
+                        background: hsla(220, 10%, 12%, 0.35);
+                        border-width: 0;
+                        border-color: hsla(220, 10%, 12%, 0);
+                        padding: 6px 10px 6px 9px;
+                        box-shadow: inset 0 0 4px hsla(0, 0%, 0%, 0.3),
+                                    inset 0 1px 0 hsla(0, 0%, 0%, 0.2),
+                                    inset 0 -1px 0 hsla(0, 0%, 100%, 0.2);
+                    }
+
+                    & > .caption {
+                        @include transform(translateX(-10px));
+                    }
+                }
+            }
+
+            &:first-child > a {
+                border-radius: 0;
+            }
+
+            &:last-child > a {
+                border-radius: 0;
+            }
+        }
+    }
+
+    ul.dropdown-menu {
+        display: none;
+    }
+}
+
+.main {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    //@include transform(translateX(0));
+    //@include transition(transform $transitionTime, left 5s, position 0s linear 5s, border-radius 5s);
+    @include transition(transform $transitionTime);
+    z-index: 9999;
+    // overflow: auto;
+}
+
+.sidebar-nav-container {
+    //display: none;
+    width: $sidebarWidth;
+    @include transform(translateX(-5px));
+    @include transition(transform $transitionTime);
+
+    .sidebar-nav-container-inner {
+        height: 100%;
+        overflow: auto;
+        padding-bottom: 40px;
+        @include box-sizing(border-box);
+    }
+
+    ul.nav {
+        &.affix, &.affix-top, &.affix-bottom {
+            position: static;
+            top: 0;
+            bottom: 0;
+        }
+    }
+}
+
+html, body {
+    background: $backgroundColor;
+    //@include transition(background 0s linear 5s);
+    overflow-x: hidden;
+}
+
+@media (max-width: 767px) {
+
+    $collapsedSidebarWidth: 55px;
+
+    .main {
+        position: absolute;
+        left: $collapsedSidebarWidth;
+        @include transform(translateX(0));
+        //@include transition(all $transitionTime);
+        //z-index: 99999;
+        overflow: auto;
+        border-radius: 5px 0 0 5px;
+        box-shadow: -10px 0 15px -5px hsla(220, 12%, 10%, 0.7);
+    }
+
+    .sidebar-nav-container {
+        background: none;
+        display: block;
+
+    //     width: $sidebarWidth;
+    //     @include transform(translateX(-5px));
+    //     @include transition(transform $transitionTime);
+    }
+
+    html, body {
+        @include background(linear-gradient(hsla(220, 7%, 25%, 0.5), hsla(220, 7%, 5%, 0.5)), url('../images/background.png') fixed);
+    }
+
+    .sidebar-open .sidebar-nav-container ul {
+        &.nav, &.dropdown-menu {
+            & > li > a {
+                border-color: hsla(0, 0%, 0%, 0.2);
+                box-shadow: inset 0 1px 0 hsla(0, 0%, 50%, 0.1);
+
+                &:hover, &:focus {
+                    box-shadow: inset 0 1px 0 hsla(0, 0%, 50%, 0.1);
+                }
+            }
+        }
+    }
+
+    ul.nav > li > a > span {
+        opacity: 0;
+        @include transition(opacity $transitionTime);
+    }
+
+    .sidebar ul.nav > li > a > span {
+        opacity: 1;
+    }
+
+    body.sidebar-open {
+
+        ul.nav > li > a > span {
+            opacity: 1;
+        }
+
+        .sidebar {
+            opacity: 1;
+            max-height: 5000px;
+        }
+
+        .main {
+            box-shadow: -20px 0 25px -5px hsla(220, 12%, 10%, 0.5);
+            //left: $sidebarWidth;
+            @include transform(translateX($sidebarWidth - $collapsedSidebarWidth));
+        }
+
+        .sidebar-nav-container {
+            //left: 0;
+            //@include transform(translateX(0));
+            @include transform(translateX(0));
+        }
+    }
+
+    .sidebar-container {
+        display: none;
+    }
+}
+
+@media (max-width: 979px) and (min-width: 768px) {
+    .sidebar-container {
+        .nav {
+            position: static;
+            //top: 30px;
+            margin-top: 0;
+            width: 166px;
+            //width: 100%;
+
+            &.affix, &.affix-top {
+                position: static;
+            }
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .sidebar-container {
+        .nav {
+            width: 270px;
+        }
+    }
+}
+
+.sidebar-footer {
+    position: fixed;
+    bottom: 0;
+    padding: 5px 17px;
+    width: 100%;
+    opacity: 0.95;
+    @include box-sizing(border-box);
+    @include background(linear-gradient(hsla(220, 7%, 15%, 0.5), hsla(240, 8%, 5%, 0.7)), url(../images/background.png) fixed);
+    border-top: solid 1px hsla(220, 10%, 0%, 0.5);
+    box-shadow: 0 -3px 10px hsla(220, 0%, 10%, 1),
+                inset 0 1px 0 hsla(220, 10%, 100%, 0.1);
+
+    .btn-icon {
+        background: none;
+        border: none;
+        color: hsla(0, 0%, 55%, 1);
+        text-shadow: 0 1px 1px hsla(0, 0%, 0%, 0.2);
+        padding: 5px;
+
+        &:hover {
+            text-decoration: none;
+            color: hsla(0, 0%, 75%, 1);
+        }
+    }
+}

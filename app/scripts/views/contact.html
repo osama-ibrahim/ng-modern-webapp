@@ -1,0 +1,70 @@
+<div class="card">
+    <form class="update-form form-horizontal"  ng-submit="save()">
+        <a href="#/contacts" class="js-navigate-link btn-back"><i class="icon-arrow-left"></i></a>
+        <h3 ui-if="!!contact.id" class="legend">Edit contact details</h3>
+        <h3 ui-if="!contact.id" class="legend">Create a new contact</h3>
+
+        <div class="control-group">
+            <label class="control-label" for="firstName">First Name</label>
+            <div class="controls">
+                <input type="text" id="firstName" name="firstName" placeholder="First Name" ng-model="contact.firstName" autofocus required data-required-error-message="Please enter a first name."/>
+                <p class="help-block"></p>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="lastName">Last Name</label>
+            <div class="controls">
+                <input type="text" id="lastName" name="lastName" placeholder="Last Name" ng-model="contact.lastName" required data-required-error-message="Please enter a last name." />
+                <p class="help-block"></p>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="email">Email</label>
+            <div class="controls">
+                <input type="email" id="email" name="email" placeholder="Email" ng-model="contact.email" required data-required-error-message="Please enter a valid email address." />
+                <p class="help-block"></p>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="address">Address</label>
+            <div class="controls">
+                <input type="text" id="address" name="address" placeholder="Address" ng-model="contact.address" />
+                <p class="help-block"></p>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="phoneNumber">Phone Number</label>
+            <div class="controls">
+                <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" ng-model="contact.phoneNumber" />
+                <p class="help-block"></p>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="groups">Groups</label>
+            <div class="controls">
+                <div class="btn-groups">
+                    <!-- <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-group"></i> <span class="caret"></span></a> -->
+                    <ul class="groups">
+                        <li ng-repeat="group in groups">
+                            <label>
+                                <input type="checkbox" value="{{group.name}}" ng-checked="group.selected" ng-model="group.selected"/> {{group.name}}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <p class="help-block"></p>
+            </div>
+
+        </div>
+
+        <div class="btn-toolbar">
+            <button type="button" class="btn btn-danger btn-large btn-collapsable" ui-if="contact.id" ng-click="remove()"><i class="icon-trash"></i> <span class="btn-caption">Remove</span></button>
+            <button type="submit" class="btn btn-success btn-large"><i class="icon-ok"></i> <span class="btn-caption">Save</span></button>
+        </div>
+    </form>
+</div>

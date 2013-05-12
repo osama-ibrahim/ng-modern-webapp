@@ -1,0 +1,9 @@
+<ul class="nav nav-list" data-spy="affix" ui-options="affixOptions" ui-jq="affix">
+    <li ng-repeat="group in groups" ng-class="{ active: group.id == $parent.selectedGroupId }">
+        <a class="js-navigate-link" ng-href="#/groups/{{group.id}}">
+            <i class="icon-chevron-right"></i>
+            <span class="label" ui-if="group.count">{{group.count}}</span>
+            <span class="caption">{{group.name}}</span>
+        </a>
+    </li>
+</ul>

@@ -1,0 +1,39 @@
+.label {
+    background: hsla(0, 0%, 93%, 1);
+    border-radius: 100px;
+    border: solid 1px;
+    border-color: hsla(0, 0%, 92%, 1) hsla(0, 0%, 89%, 1) hsla(0, 0%, 83%, 1);
+
+    max-width: 100%;
+    @include box-sizing(border-box);
+    color: hsla(0, 0%, 60%, 1);
+    text-shadow: 0 1px 0 white;
+    font-size: 11px;
+
+    .caption {
+        margin: 0 5px 0 2px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .icon-circle {
+        position: relative;
+        font-size: 5px;
+        top: -1px;
+        color: white;
+        text-shadow: 0 -1px 0 hsla(0, 0%, 63%, 1),
+                     0 0 2px hsla(0, 0%, 80%, 1);
+    }
+
+    &:hover {
+        background: hsla(0, 0%, 63%, 1);
+        border-color: hsla(0, 0%, 62%, 1) hsla(0, 0%, 59%, 1) hsla(0, 0%, 53%, 1);
+        text-shadow: 0 -1px 0 hsla(0, 0%, 43%, 1);
+        color: hsla(0, 0%, 95%, 1);
+
+        .icon-circle {
+            text-shadow: 0 -1px 0 hsla(0, 0%, 43%, 1),
+                         0 0 2px hsla(0, 0%, 80%, 1);
+        }
+    }
+}

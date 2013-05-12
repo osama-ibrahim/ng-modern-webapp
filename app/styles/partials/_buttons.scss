@@ -1,0 +1,208 @@
+.btn, .btn-group.open .btn.dropdown-toggle {
+    @include border-radius(2px);
+    font-family: arial, sans-serif;
+    font-size: 11px;
+    line-height: 28px;
+    padding: 0 12px;
+    font-weight: bold;
+    vertical-align: top;
+
+    &.btn-large {
+        font-size: 12px;
+        line-height: 12px;
+        padding: 8px 16px;
+
+        [class^="icon-"] {
+            margin-right: 2px;
+            font-size: 14pt;
+            top: 0;
+            margin-right: 5px;
+        }
+    }
+
+    @include background(linear-gradient(lighten($btnBackgroundColor, 6%), $btnBackgroundColor));
+    border-color: darken($btnBackgroundColor, 3%) darken($btnBackgroundColor, 3%) darken($btnBackgroundColor, 12%);
+    @include box-shadow(0 1px 3px hsla(0, 0, 0, 0.1));
+    text-shadow: 0 1px 0 white;
+
+    [class^="icon-"] {
+        position: relative;
+        top: -1px;
+        margin-right: 2px;
+        font-size: 12pt;
+    }
+
+    span {
+        //vertical-align: top;
+    }
+
+    &.btn-navbar {
+        .icon-bar {
+            margin: 0;
+        }
+
+        .icon-bar + .icon-bar {
+          margin-top: 3px;
+        }
+
+    }
+
+    &:focus {
+        outline: 0;
+        background-position: 0;
+    }
+
+    &.btn-uppercase {
+        text-transform: uppercase;
+    }
+}
+
+@mixin render-button($color, $backgroundColor, $hotColor, $hotBackgroundColor, $hoverBackgroundColor, $hoverBorderColor, $activeBackgroundColor, $activeBorderColor, $focusBorderColor) {
+    color: $color;
+    @if (lightness($color) > 50) {
+        text-shadow: 0 -1px 0 hsla(0, 0%, 0%, 0.5);
+    } @else {
+        text-shadow: 0 1px 0 hsla(0, 0%, 100%, 0.5);
+    }
+
+    &.btn-hot,
+    &:hover {
+        border-color: $hoverBorderColor;
+    }
+
+    &.btn-hot,
+    &:hover,
+    &:active {
+        color: $hotColor;
+        text-shadow: 0 1px 1px hsla(0, 0%, 0%, 0.2);
+        // @if (lightness($hotColor) > 50) {
+        //     text-shadow: 0 -1px 0 hsla(0, 0%, 0%, 0.5);
+        // } @else {
+        //     text-shadow: 0 1px 0 hsla(0, 0%, 100%, 0.5);
+        // }
+    }
+
+    &.btn-hot {
+        @include background($hotBackgroundColor);
+    }
+
+    &:hover {
+        @include background($hoverBackgroundColor);
+        @include box-shadow(inset 0 -3px 3px -3px hsla(0, 0%, 100%, 0.3), 0 1px 4px hsla(0, 0, 0, 0.3));
+    }
+
+    &:active,
+    &:active:hover,
+    &:active:focus,
+    &:active:focus:hover {
+        @include background($activeBackgroundColor);
+        @include box-shadow(inset 0 2px 4px hsla(0, 0%, 0%, 0.3));
+        border-color: $activeBorderColor;
+    }
+
+    &:hover,
+    &:focus {
+        border-color: $focusBorderColor;
+    }
+
+    &:focus {
+        @include box-shadow(inset 0 0 0 1px hsla(0, 100%, 100%, 0.7), 0 1px 4px transparentize($backgroundColor, 0.6));
+    }
+}
+
+.btn {
+    //
+    // Default Button
+    // ------------------------------------------------------------------------
+    $backgroundColor: $btnInverseBackgroundColor;
+    @include render-button(
+        $color: $btnColor,
+        $backgroundColor: $backgroundColor,
+        $hotColor: white,
+        $hotBackgroundColor: linear-gradient(lighten($backgroundColor, 7%), darken($backgroundColor, 5%)),
+        $hoverBackgroundColor: linear-gradient(lighten($backgroundColor, 10%), darken($backgroundColor, 5%)),
+        $hoverBorderColor: darken($backgroundColor, 3%) darken($backgroundColor, 3%) darken($backgroundColor, 12%),
+        $activeBackgroundColor: linear-gradient($backgroundColor, darken($backgroundColor, 10%)),
+        $activeBorderColor: darken($backgroundColor, 3%) darken($backgroundColor, 3%) darken($backgroundColor, 12%),
+        $focusBorderColor: darken($backgroundColor, 3%) darken($backgroundColor, 3%) darken($backgroundColor, 12%)
+    );
+
+    //
+    // Primary Button
+    // ------------------------------------------------------------------------
+    &.btn-primary {
+        $backgroundColor: $btnPrimaryBackgroundColor;
+        @include render-button(
+            $color: $btnPrimaryColor,
+            $backgroundColor: $backgroundColor,
+            $hotColor: white,
+            $hotBackgroundColor: linear-gradient(adjust-color($backgroundColor, $lightness: 7%, $saturation: 17), $backgroundColor),
+            $hoverBackgroundColor: linear-gradient(adjust-color($backgroundColor, $lightness: 10%, $saturation: 17), darken($backgroundColor, 5%)),
+            $hoverBorderColor: darken($backgroundColor, 3%) darken($backgroundColor, 3%) darken($backgroundColor, 12%),
+            $activeBackgroundColor: linear-gradient($backgroundColor, adjust-color($backgroundColor, $lightness: -10%)),
+            $activeBorderColor: darken($backgroundColor, 3%) darken($backgroundColor, 3%) darken($backgroundColor, 12%),
+            $focusBorderColor: darken($backgroundColor, 3%) darken($backgroundColor, 3%) darken($backgroundColor, 12%)
+        );
+    }
+
+    //
+    // Danger Button
+    // ------------------------------------------------------------------------
+    &.btn-danger {
+        $backgroundColor: $btnDangerBackgroundColor;
+        @include render-button(
+            $color: $btnDangerColor,
+            $backgroundColor: $backgroundColor,
+            $hotColor: white,
+            $hotBackgroundColor: linear-gradient(adjust-color($backgroundColor, $lightness: 7%, $saturation: 17), $backgroundColor),
+            $hoverBackgroundColor: linear-gradient(adjust-color($backgroundColor, $lightness: 10%, $saturation: 17), darken($backgroundColor, 5%)),
+            $hoverBorderColor: darken($backgroundColor, 3%) darken($backgroundColor, 3%) darken($backgroundColor, 12%),
+            $activeBackgroundColor: linear-gradient($backgroundColor, darken($backgroundColor, 10%)),
+            $activeBorderColor: darken($backgroundColor, 8%) lighten($backgroundColor, 6%) lighten($backgroundColor, 6%),
+            $focusBorderColor: lighten($backgroundColor, 6%) lighten($backgroundColor, 6%) darken($backgroundColor, 8%)
+        );
+    }
+
+    //
+    // Success Button
+    // ------------------------------------------------------------------------
+    &.btn-success {
+        $backgroundColor: $btnSuccessBackgroundColor;
+        @include render-button(
+            $color: $btnSuccessColor,
+            $backgroundColor: $backgroundColor,
+            $hotColor: white,
+            $hotBackgroundColor: linear-gradient(lighten($backgroundColor, 7%), $backgroundColor),
+            $hoverBackgroundColor: linear-gradient(lighten($backgroundColor, 17%), $backgroundColor),
+            $hoverBorderColor: darken($backgroundColor, 3%) darken($backgroundColor, 3%) darken($backgroundColor, 12%),
+            $activeBackgroundColor: linear-gradient($backgroundColor, darken($backgroundColor, 10%)),
+            $activeBorderColor: darken($backgroundColor, 8%) lighten($backgroundColor, 6%) lighten($backgroundColor, 6%),
+            $focusBorderColor: lighten($backgroundColor, 6%) lighten($backgroundColor, 6%) darken($backgroundColor, 8%)
+        );
+    }
+
+    //
+    // Warning Button
+    // ------------------------------------------------------------------------
+    &.btn-warning {
+        $backgroundColor: $btnWarningBackgroundColor;
+        @include render-button(
+            $color: $btnWarningColor,
+            $backgroundColor: $backgroundColor,
+            $hotColor: hsla(215, 100%, 20%, 0.8),
+            $hotBackgroundColor: linear-gradient(adjust-color($backgroundColor, $hue: 10%, $lightness: 7%), $backgroundColor),
+            $hoverBackgroundColor: linear-gradient(adjust-color($backgroundColor, $hue: 15%, $lightness: 17%), darken($backgroundColor, 5%)),
+            $hoverBorderColor: darken($backgroundColor, 3%) darken($backgroundColor, 3%) darken($backgroundColor, 12%),
+            $activeBackgroundColor: linear-gradient($backgroundColor, darken($backgroundColor, 10%)),
+            $activeBorderColor: darken($backgroundColor, 8%) lighten($backgroundColor, 6%) lighten($backgroundColor, 6%),
+            $focusBorderColor: lighten($backgroundColor, 6%) lighten($backgroundColor, 6%) darken($backgroundColor, 8%)
+        );
+    }
+}
+
+
+@media (max-width: 768px) {
+    .btn-collapsable .btn-caption {
+        display: none;
+    }
+}

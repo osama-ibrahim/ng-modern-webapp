@@ -1,0 +1,77 @@
+<div class="card card-search">
+    <form ng-submit="search()">
+        <div class="search-wrapper">
+            <div class="input-wrapper">
+                <input type="search" name="q" ng-model="searchQuery" placeholder="Type to search..." autofocus />
+            </div>
+            <button type="submit" class="btn btn-primary btn-hot btn-collapsable"><i class="icon-search icon-white"></i> <span class="btn-caption">Search</span></button>
+        </div>
+    </form>
+</div>
+
+<div class="card">
+
+    <div ui-if="searchQuery.length == 0">
+        <h2 ui-if="selectedGroup">{{selectedGroup.name}}</h2>
+
+        <a href="#/contacts/create" ui-if="!selectedGroup" class="btn btn-danger btn-hot btn-large pull-right js-navigate-link btn-collapsable btn-uppercase"><i class="icon-plus icon-white"></i> <span class="btn-caption">Create New Contact</span></a>
+
+        <h2 ui-if="!selectedGroup">Contacts</h2>
+    </div>
+
+    <h2 ui-if="searchQuery.length > 0">Search</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="sortable" ng-click="sortBy('name')" ng-class="{ sorting: sortAttribute == 'name', 'reverse-sorting': sortReverse }">
+                    <i class="icon-sort-arrow"></i>
+                    Name
+                </th>
+                <th class="sortable" ng-click="sortBy('email')" ng-class="{ sorting: sortAttribute == 'email', 'reverse-sorting': sortReverse}">
+                    <i class="icon-sort-arrow"></i>
+                    Email
+                </th>
+                <th class="sortable" ng-click="sortBy('phoneNumber')" ng-class="{ sorting: sortAttribute == 'phoneNumber', 'reverse-sorting': sortReverse}">
+                    <i class="icon-sort-arrow"></i>
+                    Phone
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody class="empty-table" ui-if="filteredContacts.length == 0">
+            <tr>
+                <td colspan="4">
+
+                    <span class="empty-search-message" ui-if="searchQuery.length > 0">There are no contacts that match your query</span>
+
+                    <div ui-if="searchQuery.length == 0">
+                        You don't have any contact yet
+                        <div>
+                            <a href="#/contacts/create" class="js-navigate-link">Create a new contact.</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+
+        <tbody ui-if="filteredContacts.length != 0">
+            <tr ng-repeat="contact in filteredContacts">
+                <td class="contact-name">
+                    <a href="#/contacts/{{contact.id}}" class="js-navigate-link">{{contact.firstName}} {{contact.lastName}}</a>
+                </td>
+                <td><a href="#/contacts/{{contact.id}}" class="js-navigate-link">{{contact.email}}</a></td>
+                <td><a href="#/contacts/{{contact.id}}" class="js-navigate-link">{{contact.phoneNumber}}</a></td>
+                <td class="col-groups">
+                    <span class="label-wrapper" ng-repeat="group in contact.groups">
+                        <a class="label js-navigate-link" rel="tooltip" href="#/groups/{{group.id}}" title=""><i class="icon-circle"></i> {{group.name}}</a>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+
+
+    </table>
+</div>
