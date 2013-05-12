@@ -26,4 +26,22 @@ After everything gets installed, you should run the following command to build t
 grunt
 ```
 
-After grunt has finished building the project you will have the app minified and concatinated under the `dist` folder
+After grunt has finished building the project you will have the app minified and concatenated under the `dist` folder
+
+## Deploying to Github Pages
+
+after building the app using grunt you should push the files under the `dist` folder to the `gh-pages` branch
+
+```
+# Navigate to the dist folder (which is itself the same repo with the `gh-pages` branch checked-out)
+cd dist
+
+# Adding all the files under the `dist` folder to the staging area.
+git add -A
+
+# Committing the changes
+git commit -m "Commit message"
+
+# Pushing the code to the origin's gh-pages branch to update the site
+git push origin gh-pages
+```
